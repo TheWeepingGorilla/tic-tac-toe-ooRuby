@@ -47,7 +47,7 @@ describe "Game" do
   it "Creates two players" do
     test_game = Game.new
     expect(test_game.players[0].symbol).to eq "X"
-    expect(test_game.players[1].symbol).to eq "Y"
+    expect(test_game.players[1].symbol).to eq "O"
   end
 
   it "Creates a board" do
@@ -55,5 +55,17 @@ describe "Game" do
     test_board = test_game.create_board
     expect(test_board).to be_an_instance_of Board
     expect(test_board.spaces.length).to eq 9
+  end
+
+  it "Changes to the next turn" do
+    test_game = Game.new
+    test_game.next_turn
+    expect(test_game.current_turn).to eq "O"
+  end
+
+  describe "Game.victory" do
+    it "The game is won when 3-marks are vertically in a row" do
+      test_game = Game.new
+    end
   end
 end

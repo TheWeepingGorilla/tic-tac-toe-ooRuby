@@ -41,23 +41,36 @@ class Player
 end
 
 class Game
-  attr_reader :players
+  attr_reader :players, :current_turn
 
   def initialize
     create_board
     add_players
+    @current_turn = "X"
   end
 
   def add_players
     @players = []
-    playerX = Player.new("X")
-    @players << playerX
-    playerY = Player.new("Y")
-    @players << playerY
+    player_x = Player.new("X")
+    @players << player_x
+    player_o = Player.new("O")
+    @players << player_o
   end
 
   def create_board
     new_board = Board.new
     new_board
+  end
+
+  def next_turn
+    if @current_turn == "X"
+      @current_turn = "O"
+    else
+      @current_turn = "X"
+    end
+  end
+
+  def victory
+
   end
 end
