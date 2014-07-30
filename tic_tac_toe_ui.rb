@@ -18,7 +18,12 @@ def header
 end
 
 def display
+  g = @current_game
   puts "It's Player " + @current_game.current_turn + "'s turn."
+  w_s
+  puts g.spaces[0].marked_by + "|" + g.spaces[1].marked_by + "|" + g.spaces[2].marked_by
+  puts g.spaces[3].marked_by + "|" + g.spaces[4].marked_by + "|" + g.spaces[5].marked_by
+  puts g.spaces[6].marked_by + "|" + g.spaces[7].marked_by + "|" + g.spaces[8].marked_by
 end
 
 def main_menu
@@ -47,16 +52,27 @@ def start_game
 end
 
 def play_game
+  g = @current_game
   header
   w_s
   display
   w_s
+  puts "Enter the space number to mark"
 
-  main_choice = gets.chomp.upcase
-  if main_choice == "N"
-    @current_game.next_turn
-    play_game
+  space_to_mark = gets.chomp.to_i
+  symbol = @current_game.current_turn
+
+  g.spaces[space_to_mark-1].mark_space(symbol)
+
+  if g.victory(symbol) != "The saga continues."
+    puts g.victory(symbol)
+    sleep 1.5
+    main_menu
   end
+
+  g.next_turn
+
+  play_game
 end
 
 main_menu
